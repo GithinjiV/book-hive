@@ -1,24 +1,14 @@
-# README
+# Book Hive
+A book lending library application built with Ruby on Rails 8.
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Features
+- User registration and login
+- Browse available books
+- Borrow and return books
+- View currently borrowed books
 
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+## Setup
+1. Clone the repository
+2. Install dependencies by running ```bundle install``` and ```yarn install```
+3. Setup the database by running ```./bin/rails db:setup```
+4. Start the server by running ```./bin/dev```
