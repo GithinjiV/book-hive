@@ -1,0 +1,17 @@
+<% if flash.any? %>
+  <div class="fixed top-0 right-0 p-4 space-y-4 z-50" id="flash-messages">
+    <% flash.each do |level, message| %>
+      <div class="flex items-center p-4 rounded-lg border <%= flash_class(level) %> fade-out"
+           data-controller="flash"
+           data-flash-target="message"
+           role="alert">
+        <div class="flex-shrink-0">
+          <%= raw flash_icon(level) %>
+        </div>
+        <div class="ml-3">
+          <p class="text-sm"><%= message %></p>
+        </div>
+      </div>
+    <% end %>
+  </div>
+<% end %>

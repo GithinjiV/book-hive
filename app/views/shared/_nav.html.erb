@@ -1,0 +1,25 @@
+<nav class="bg-gradient-to-r from-green-700 to-green-800 text-white shadow-lg transition-all duration-300">
+  <div class="container mx-auto px-8 py-5 flex justify-between items-center">
+    <%= link_to "Book Hive", root_path, class: "text-2xl font-bold tracking-tight hover:text-green-200 transition-colors duration-200 flex items-center gap-2" %>
+
+    <div class="flex space-x-6 text-sm font-medium">
+      <%= link_to "Home", root_path, class: "hover:text-green-200 transition-colors duration-200 border-b-2 border-transparent hover:border-green-200 py-1" %>
+      <%= link_to "Books", books_path, class: "hover:text-green-200 transition-colors duration-200 border-b-2 border-transparent hover:border-green-200 py-1" %>
+      <% if authenticated? %>
+        <%= link_to "Profile", root_url, class: "hover:text-green-200 transition-colors duration-200 border-b-2 border-transparent hover:border-green-200 py-1" %>
+      <% end %>
+    </div>
+
+    <div>
+      <% if authenticated? %>
+        <%= button_to "Logout", session_path,
+            method: :delete,
+            data: {turbo_method: :delete},
+            class: "bg-white text-green-600 hover:bg-green-100 px-5 py-2 rounded-lg font-medium text-sm transition-colors duration-200 shadow-sm hover:shadow" %>
+      <% else %>
+        <%= link_to "Login", new_session_path,
+            class: "bg-white text-green-600 hover:bg-green-100 px-5 py-2 rounded-lg font-medium text-sm transition-colors duration-200 shadow-sm hover:shadow" %>
+      <% end %>
+    </div>
+  </div>
+</nav>

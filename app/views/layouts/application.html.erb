@@ -23,8 +23,9 @@
   </head>
 
   <body>
-    <main class="container mx-auto mt-28 px-5 flex">
-      <%= yield %>
-    </main>
+    <%= render "shared/nav" %>
+    <%= render "shared/flash"%>
+    <%= yield %>
+    <%= render "shared/footer" %>
   </body>
 </html>

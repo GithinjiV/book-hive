@@ -16,9 +16,9 @@ class RegistrationsController < ApplicationController
 
     if @user.save
       start_new_session_for @user
-      redirect_to after_authentication_url, notice: "Welcome!"
+      redirect_to after_authentication_url, notice: "Welcome back #{@user.first_name}!"
     else
-      flash[:alert] = "Email or password confirmation invalid."
+      flash[:alert] =  @user.errors.full_messages.join("\n")
       render :new, status: :unprocessable_entity
     end
   end
