@@ -1,3 +1,7 @@
 class Book < ApplicationRecord
-  has_many :circulation_records
+  include Borrowable
+
+  validates :title, presence: true
+  validates :author, presence: true
+  validates :isbn, presence: true, uniqueness: true
 end

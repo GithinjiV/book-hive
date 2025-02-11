@@ -1,25 +1,56 @@
 <% content_for :title, "Books" %>
 
-<div class="w-full">
-  <% if notice.present? %>
-    <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-md inline-block" id="notice"><%= notice %></p>
-  <% end %>
-
-  <div class="flex justify-between items-center">
-    <h1 class="font-bold text-4xl">Books</h1>
-    <%= link_to "New book", new_book_path, class: "rounded-md px-3.5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white block font-medium" %>
+<div class="container mx-auto px-8 py-12">
+  <div class="flex justify-between items-center mb-12">
+    <div>
+      <h1 class="font-bold text-4xl text-gray-900 mb-2">Books</h1>
+      <p class="text-gray-600">Explore our collection of amazing books</p>
+    </div>
+    <% if @books.any? %>
+      <%= link_to new_book_path,
+          class: "inline-flex items-center gap-2 bg-gradient-to-r from-green-600 to-green-600 hover:from-green-500 hover:to-green-500 text-white px-4 py-2 rounded-lg font-medium transition-all duration-200 shadow-md hover:shadow-lg" do %>
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+          <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd" />
+        </svg>
+        Add New Book
+      <% end %>
+    <% end %>
   </div>
 
-  <div id="books" class="min-w-full">
+  <div id="books">
     <% if @books.any? %>
-      <% @books.each do |book| %>
-        <%= render book %>
-        <p>
-          <%= link_to "Show this book", book, class: "ml-2 rounded-md px-3.5 py-2.5 bg-gray-100 hover:bg-gray-50 inline-block font-medium" %>
-        </p>
-      <% end %>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <% @books.each do |book| %>
+          <%= link_to book, class: "group" do %>
+            <div class="relative">
+              <%= render book %>
+              <div class="absolute inset-x-6 bottom-6 gap-4">
+                <div class="inline-flex items-center text-green-600 group-hover:text-green-700 font-medium transition-colors duration-200">
+                  View Details
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+                  </svg>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
     <% else %>
-      <p class="text-center my-10">No books found.</p>
+      <div class="text-center py-12 px-4 bg-gradient-to-br from-green-50 to-green-50 rounded-xl border border-green-100">
+        <svg xmlns="http://www.w3.org/2000/svg" class="mx-auto h-12 w-12 text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+        </svg>
+        <h3 class="mt-4 text-lg font-medium text-gray-900">No books yet.</h3>
+        <p class="mt-2 text-gray-600">Check back soon</p>
+        <%= link_to new_book_path,
+            class: "mt-6 inline-flex items-center gap-2 bg-gradient-to-r from-green-600 to-green-600 hover:from-green-500 hover:to-green-500 text-white px-3 py-2 rounded-lg font-medium transition-all duration-200 shadow-md hover:shadow-lg" do %>
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd" />
+          </svg>
+          Add Your First Book
+        <% end %>
+      </div>
     <% end %>
   </div>
 </div>

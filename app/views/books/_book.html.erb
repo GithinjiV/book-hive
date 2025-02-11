@@ -1,14 +1,32 @@
-<div id="<%= dom_id book %>">
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Title:</strong>
-    <%= book.title %>
-  </p>
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Author:</strong>
-    <%= book.author %>
-  </p>
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Isbn:</strong>
-    <%= book.isbn %>
-  </p>
+<div id="<%= dom_id book %>" class="bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow duration-200">
+  <div class="p-6 space-y-6">
+    <div class="flex gap-6">
+      <%= image_tag 'book_placeholder.png',
+          class: "w-32 h-44 object-cover rounded-lg shadow-md bg-gray-100",
+          alt: "Cover of #{book.title}" %>
+
+      <div class="flex-1 min-w-0">
+        <div class="space-y-4">
+          <div>
+            <h3 class="text-gray-500 text-sm font-medium">Title</h3>
+            <p class="text-xl font-semibold text-gray-900 truncate"><%= book.title %></p>
+          </div>
+
+          <div>
+            <h3 class="text-gray-500 text-sm font-medium">Author</h3>
+            <p class="text-lg text-gray-800"><%= book.author %></p>
+          </div>
+
+          <div>
+            <h3 class="text-gray-500 text-sm font-medium">ISBN</h3>
+            <p class="text-gray-600 font-mono tracking-wide"><%= book.isbn %></p>
+          </div>
+        </div>
+
+        <div class="mt-6 flex flex-wrap gap-4 text-sm text-gray-600">
+          <%= book.borrowable? ? "Available": "Borrowed" %>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
