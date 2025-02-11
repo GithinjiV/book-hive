@@ -1,11 +1,12 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  title: MyString
-  author: MyString
-  isbn: MyString
+  title: Kafka on the Shore
+  author: Haruki Murakami
+  isbn: <%= Faker::Code.isbn %>
 
 two:
-  title: MyString
-  author: MyString
-  isbn: MyString
+  title: The Gambler
+  author: Fyodor Dostoevsky
+  isbn: <%= Faker::Code.isbn %>
+
