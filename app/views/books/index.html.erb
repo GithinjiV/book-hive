@@ -1,12 +1,12 @@
 <% content_for :title, "Books" %>
 
-<div class="container mx-auto px-8 py-12">
+<div class="container h-screen mx-auto px-8 py-12">
   <div class="flex justify-between items-center mb-12">
     <div>
       <h1 class="font-bold text-4xl text-gray-900 mb-2">Books</h1>
       <p class="text-gray-600">Explore our collection of amazing books</p>
     </div>
-    <% if @books.any? %>
+    <% if Current.user.can_administer? && @books.any? %>
       <%= link_to new_book_path,
           class: "inline-flex items-center gap-2 bg-gradient-to-r from-green-600 to-green-600 hover:from-green-500 hover:to-green-500 text-white px-4 py-2 rounded-lg font-medium transition-all duration-200 shadow-md hover:shadow-lg" do %>
         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
@@ -43,12 +43,14 @@
         </svg>
         <h3 class="mt-4 text-lg font-medium text-gray-900">No books yet.</h3>
         <p class="mt-2 text-gray-600">Check back soon</p>
-        <%= link_to new_book_path,
-            class: "mt-6 inline-flex items-center gap-2 bg-gradient-to-r from-green-600 to-green-600 hover:from-green-500 hover:to-green-500 text-white px-3 py-2 rounded-lg font-medium transition-all duration-200 shadow-md hover:shadow-lg" do %>
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-            <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd" />
-          </svg>
-          Add Your First Book
+        <% if Current.user.can_administer? %>
+          <%= link_to new_book_path,
+              class: "mt-6 inline-flex items-center gap-2 bg-gradient-to-r from-green-600 to-green-600 hover:from-green-500 hover:to-green-500 text-white px-3 py-2 rounded-lg font-medium transition-all duration-200 shadow-md hover:shadow-lg" do %>
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd" />
+            </svg>
+            Add Your First Book
+          <% end %>
         <% end %>
       </div>
     <% end %>

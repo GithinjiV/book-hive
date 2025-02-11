@@ -1,6 +1,6 @@
 <% content_for :title, @book.title %>
 
-<div class="container mx-auto px-8 py-12">
+<div class="container mx-auto px-8 h-screen py-12">
   <nav class="flex items-center text-gray-500 mb-8" aria-label="Breadcrumb">
     <%= link_to "Books", books_path, class: "hover:text-green-600 transition-colors duration-200" %>
     <svg class="mx-3 h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -24,6 +24,11 @@
       </div>
 
       <%= render @book %>
+      <% if @book.borrowable? %>
+        <%= button_to "Check Out", book_check_out_path(@book), method: :post, class: "bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700" %>
+      <% else %>
+        <p class="text-red-600">This book is currently unavailable.</p>
+      <% end %>
 
       <div class="mt-8 flex justify-between flex-wrap gap-4">
 

@@ -25,7 +25,7 @@
                  book.errors[:title].none? ?
                    "border-gray-300 focus:border-orange-500 focus:ring focus:ring-orange-200 focus:ring-opacity-50" :
                    "border-red-300 focus:border-red-500 focus:ring focus:ring-red-200 focus:ring-opacity-50"],
-          placeholder: "Enter book title" %>
+           required: true, placeholder: "Enter book title" %>
     </div>
 
     <div>
@@ -35,7 +35,7 @@
                  book.errors[:author].none? ?
                    "border-gray-300 focus:border-orange-500 focus:ring focus:ring-orange-200 focus:ring-opacity-50" :
                    "border-red-300 focus:border-red-500 focus:ring focus:ring-red-200 focus:ring-opacity-50"],
-          placeholder: "Enter author name" %>
+           required: true, placeholder: "Enter author name" %>
     </div>
 
     <div>
@@ -45,7 +45,7 @@
                  book.errors[:isbn].none? ?
                    "border-gray-300 focus:border-orange-500 focus:ring focus:ring-orange-200 focus:ring-opacity-50" :
                    "border-red-300 focus:border-red-500 focus:ring-3 focus:ring-red-200 focus:ring-opacity-50"],
-          placeholder: "Enter ISBN" %>
+           required: true, placeholder: "Enter ISBN" %>
     </div>
 
     <div class="flex gap-4">

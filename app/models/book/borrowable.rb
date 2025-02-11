@@ -2,7 +2,7 @@ module Book::Borrowable
   extend ActiveSupport::Concern
 
   included do
-    has_many :circulation_records
+    has_many :circulation_records, dependent: :destroy
     has_many :borrowers, through: :circulation_records, source: :user
   end
 

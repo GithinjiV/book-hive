@@ -1,7 +1,8 @@
 class CirculationRecordsController < ApplicationController
+  before_action :ensure_can_administer, only: [ :edit, :update, :show, :destroy ]
   def check_out
     @book = Book.find(params[:book_id])
-    @circulation_record = current_user.circulation_records.new(book: @book, due_date: 2.weeks.from_now)
+    @circulation_record = Current.user.circulation_records.new(book: @book, due_date: 2.weeks.from_now)
 
     if @circulation_record.save
       redirect_to @book, notice: "Book checked out successfully!"
