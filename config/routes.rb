@@ -3,6 +3,13 @@ Rails.application.routes.draw do
   resources :passwords, param: :token
   resources :registrations, only: %i[new create ]
   resources :books
+  resources :books, only: [ :index, :show ] do
+    post "check_out", to: "circulation_records#check_out"
+  end
+
+  resources :circulation_records, only: [] do
+    patch "check_in", to: "circulation_records#check_in"
+  end
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
