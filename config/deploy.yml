@@ -7,7 +7,7 @@ image: githinjiv/bookhive
 # Deploy to these servers.
 servers:
   web:
-    - 95.217.189.65
+    - 78.47.104.21
   # job:
   #   hosts:
   #     - 192.168.0.1
@@ -20,8 +20,6 @@ servers:
 proxy:
   ssl: true
   host: bookhive.kachistore.online
-  app_port: 3001
-  response_timeout: 50
 
 # Credentials for your image host.
 registry:
@@ -102,20 +100,20 @@ ssh:
 
 
 # Use accessory services (secrets come from .kamal/secrets).
-# accessories:
-#   db:
-#     image: mysql:8.0
-#     host: bookhive.kachistore.online
-#     port: "127.0.0.1:3307:3307"
-#     env:
-#       clear:
-#         MYSQL_ROOT_HOST: '%'
-#       secret:
-#         - MYSQL_ROOT_PASSWORD
-#     files:
-#       - db/production.sql:/docker-entrypoint-initdb.d/setup.sql
-#     directories:
-#       - data:/var/lib/mysql
+accessories:
+  db:
+    image: mysql:8.0
+    host: bookhive.kachistore.online
+    port: "127.0.0.1:3306:3306"
+    env:
+      clear:
+        MYSQL_ROOT_HOST: '%'
+      secret:
+        - MYSQL_ROOT_PASSWORD
+    files:
+      - db/production.sql:/docker-entrypoint-initdb.d/setup.sql
+    directories:
+      - data:/var/lib/mysql
 #   redis:
 #     image: redis:7.0
 #     host: 192.168.0.2
