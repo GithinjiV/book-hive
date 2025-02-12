@@ -20,8 +20,8 @@ servers:
 proxy:
   ssl: true
   host: bookhive.kachistore.online
-  # app_port: 3000
-  # response_timeout: 50
+  app_port: 3000
+  response_timeout: 50
 
 # Credentials for your image host.
 registry:
