@@ -3,7 +3,7 @@
 one:
   first_name: John
   last_name: Doe
-  username: johndoe
+  username: doejohn
   email_address: one@example.com
   password_digest: <%= password_digest %>
   role: 1
