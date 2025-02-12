@@ -1,25 +1,21 @@
 <nav class="bg-gradient-to-r from-green-700 to-green-800 text-white shadow-lg transition-all duration-300">
   <div class="container mx-auto px-8 py-5 flex justify-between items-center">
     <%= link_to "Book Hive", root_path, class: "text-2xl font-bold tracking-tight hover:text-green-200 transition-colors duration-200 flex items-center gap-2" %>
+    <% if authenticated? %>
+        <div class="relative" data-controller="dropdown">
+          <button data-action="click->dropdown#toggle" class="focus:outline-none">
+            <%= image_tag "user_placeholder.png", class: "w-10 h-10 rounded-full", alt: "User Avatar" %>
+          </button>
 
-    <div class="flex space-x-6 text-sm font-medium">
-      <%= link_to "Home", root_path, class: "hover:text-green-200 transition-colors duration-200 border-b-2 border-transparent hover:border-green-200 py-1" %>
-      <%= link_to "Books", books_path, class: "hover:text-green-200 transition-colors duration-200 border-b-2 border-transparent hover:border-green-200 py-1" %>
-      <% if authenticated? %>
-        <%= link_to "Profile", root_url, class: "hover:text-green-200 transition-colors duration-200 border-b-2 border-transparent hover:border-green-200 py-1" %>
-      <% end %>
-    </div>
-
-    <div>
-      <% if authenticated? %>
-        <%= button_to "Logout", session_path,
-            method: :delete,
-            data: {turbo_method: :delete},
-            class: "bg-white text-green-600 hover:bg-green-100 px-5 py-2 rounded-lg font-medium text-sm transition-colors duration-200 shadow-sm hover:shadow" %>
-      <% else %>
-        <%= link_to "Login", new_session_path,
-            class: "bg-white text-green-600 hover:bg-green-100 px-5 py-2 rounded-lg font-medium text-sm transition-colors duration-200 shadow-sm hover:shadow" %>
-      <% end %>
-    </div>
+          <div data-dropdown-target="menu" class="hidden absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg z-50">
+            <div class="py-2">
+              <%= link_to "Profile", users_profile_path, class: "block px-4 py-2 text-gray-700 hover:bg-gray-100" %>
+              <%= button_to "Logout", session_path, method: :delete, data: {turbo_confirm: "Are you sure?"}, class: "block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100" %>
+            </div>
+          </div>
+        </div>
+    <% else %>
+      <%= link_to "Log In", new_session_path, class: "hover:text-green-200 transition-colors duration-200" %>
+    <% end %>
   </div>
 </nav>
