@@ -64,3 +64,4 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
 end
+gem "name_of_person", "~> 1.1"
