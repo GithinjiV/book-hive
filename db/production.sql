@@ -1,0 +1,4 @@
+CREATE DATABASE bookhive_production;
+CREATE DATABASE bookhive_production_queue;
+CREATE DATABASE bookhive_production_cache;
+CREATE DATABASE bookhive_production_cable;
