@@ -9,8 +9,8 @@
                 method: :post,
                 class: "w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg font-medium transition-all duration-200 hover:shadow-md hover:-translate-y-0.5",
                 data: {
-                  turbo_confirm: "Would you like to borrow '#{book.title}'?",
-                  disable_with: "Processing..."
+                  turbo_confirm: "Borrow #{@book.title}?",
+                  confirm_title: "Borrow Book"
                 } do %>
               <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                 <path d="M8 5a1 1 0 100 2h5.586l-1.293 1.293a1 1 0 001.414 1.414l3-3a1 1 0 000-1.414l-3-3a1 1 0 10-1.414 1.414L13.586 5H8z" />
