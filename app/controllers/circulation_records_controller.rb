@@ -4,15 +4,15 @@ class CirculationRecordsController < ApplicationController
     @circulation_record = Current.user.circulation_records.new(book: @book, due_date: 2.weeks.from_now)
 
     if @circulation_record.save
-      redirect_to @book, notice: "Book checked out successfully!"
+      redirect_to @book, notice: "Book borrowed successfully!"
     else
-      redirect_to @book, alert: "Unable to check out book."
+      redirect_to @book, alert: "Unable to borrow book."
     end
   end
 
   def check_in
     @circulation_record = CirculationRecord.find(params[:id])
     @circulation_record.update(returned_at: Time.current)
-    redirect_to profile_path, notice: "Book checked in successfully!"
+    redirect_to profile_path, notice: "Book returned successfully!"
   end
 end
