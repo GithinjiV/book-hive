@@ -1,0 +1,52 @@
+<%# app/views/books/_books_list.html.erb %>
+
+<div class="space-y-4">
+  <% books.each do |book| %>
+    <div class="bg-white rounded-lg shadow p-4 hover:shadow-md transition">
+      <div class="flex justify-between items-start">
+        <div class="flex-1">
+          <h3 class="text-lg font-semibold mb-1">
+            <%= link_to book.title, book_path(book), class: "hover:text-blue-600 transition" %>
+          </h3>
+
+          <div class="text-gray-600 text-sm space-y-1">
+            <p>
+              <span class="font-medium">Author:</span> <%= book.author %>
+            </p>
+            <p>
+              <span class="font-medium">ISBN:</span> <%= book.isbn %>
+            </p>
+          </div>
+        </div>
+
+        <div class="flex gap-2">
+          <%= link_to book_path(book),
+              class: "px-3 py-1 text-sm bg-blue-600 text-white rounded hover:bg-blue-700 transition",
+              data: { turbo_frame: "_top" } do %>
+            View Details
+          <% end %>
+
+          <% if local_assigns[:show_status] && book.respond_to?(:status) %>
+            <span class="px-3 py-1 text-sm rounded
+              <%= case book.status
+                  when 'available'
+                    'bg-green-100 text-green-800'
+                  when 'borrowed'
+                    'bg-yellow-100 text-yellow-800'
+                  else
+                    'bg-gray-100 text-gray-800'
+                  end %>">
+              <%= book.status.titleize %>
+            </span>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+
+  <% if books.empty? %>
+    <div class="text-center py-8 text-gray-500">
+      <p>No books found.</p>
+    </div>
+  <% end %>
+</div>

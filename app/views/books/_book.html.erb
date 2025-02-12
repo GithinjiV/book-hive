@@ -1,25 +1,48 @@
-<div id="<%= dom_id book %>" class="bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow duration-200">
-  <div class="p-6 space-y-6">
+<div id="<%= dom_id book %>" class="bg-white rounded-xl shadow-sm hover:shadow-md transition-all duration-300 ease-in-out hover:-translate-y-0.5">
+  <div class="p-6">
     <div class="flex gap-6">
-      <%= image_tag 'book_placeholder.png',
-          class: "w-32 h-44 object-cover rounded-lg shadow-md bg-gray-100",
-          alt: "Cover of #{book.title}" %>
-
       <div class="flex-1 min-w-0">
-        <div class="space-y-4">
-          <div>
-            <h3 class="text-gray-500 text-sm font-medium">Title</h3>
-            <p class="text-xl font-semibold text-gray-900 truncate"><%= book.title %></p>
+        <div class="space-y-5">
+          <div class="mb-8">
+          <% if @book.borrowable? %>
+            <%= button_to book_check_out_path(@book),
+                method: :post,
+                class: "w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg font-medium transition-all duration-200 hover:shadow-md hover:-translate-y-0.5",
+                data: {
+                  turbo_confirm: "Would you like to borrow '#{book.title}'?",
+                  disable_with: "Processing..."
+                } do %>
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                <path d="M8 5a1 1 0 100 2h5.586l-1.293 1.293a1 1 0 001.414 1.414l3-3a1 1 0 000-1.414l-3-3a1 1 0 10-1.414 1.414L13.586 5H8z" />
+              </svg>
+              Borrow
+            <% end %>
+          <% else %>
+          <div class="bg-red-50 text-red-600 px-4 py-3 rounded-lg inline-flex items-center gap-2">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
+            </svg>
+            <% if @book.currently_borrowed?%>
+              Due back on <%= @book.current_circulation.due_date %>
+            <% else %>
+              This book is currently unavailable
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+          <div class="border-b pb-4">
+            <h3 class="text-gray-500 text-sm font-medium uppercase tracking-wide">Title</h3>
+            <p class="text-xl font-semibold text-gray-900 truncate mt-1"><%= book.title %></p>
+          </div>
+
+          <div class="border-b pb-4">
+            <h3 class="text-gray-500 text-sm font-medium uppercase tracking-wide">Author</h3>
+            <p class="text-lg text-gray-800 mt-1"><%= book.author %></p>
           </div>
 
           <div>
-            <h3 class="text-gray-500 text-sm font-medium">Author</h3>
-            <p class="text-lg text-gray-800"><%= book.author %></p>
-          </div>
-
-          <div>
-            <h3 class="text-gray-500 text-sm font-medium">ISBN</h3>
-            <p class="text-gray-600 font-mono tracking-wide"><%= book.isbn %></p>
+            <h3 class="text-gray-500 text-sm font-medium uppercase tracking-wide">ISBN</h3>
+            <p class="text-gray-600 font-mono tracking-wide mt-1"><%= book.isbn %></p>
           </div>
         </div>
       </div>

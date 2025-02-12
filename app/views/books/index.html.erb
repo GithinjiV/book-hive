@@ -1,9 +1,9 @@
-<% content_for :title, "Books" %>
+<% content_for :title, "Book Hive Catalogue" %>
 
-<div class="container h-screen mx-auto px-8 py-12">
+<div class="container min-h-screen mx-auto px-8 py-12">
   <div class="flex justify-between items-center mb-12">
     <div>
-      <h1 class="font-bold text-4xl text-gray-900 mb-2">Books</h1>
+      <h1 class="font-bold text-2xl text-gray-900 mb-2">Books</h1>
       <p class="text-gray-600">Explore our collection of amazing books</p>
     </div>
     <% if Current.user.can_administer? && @books.any? %>
@@ -19,17 +19,36 @@
 
   <div id="books">
     <% if @books.any? %>
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 px-6">
         <% @books.each do |book| %>
-          <%= link_to book, class: "group" do %>
-            <div class="relative">
-              <%= render book %>
-              <div class="absolute inset-x-6 bottom-6 gap-4">
-                <div class="inline-flex items-center text-green-600 group-hover:text-green-700 font-medium transition-colors duration-200">
-                  View Details
-                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2" viewBox="0 0 20 20" fill="currentColor">
-                    <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
-                  </svg>
+          <%= link_to book, class: "group block" do %>
+            <div class="h-full bg-white rounded-lg shadow-sm hover:shadow-lg transition-all duration-300 ease-in-out transform hover:-translate-y-1 overflow-hidden border border-gray-100">
+              <div class="aspect-[4/3] overflow-hidden bg-gray-50">
+                <%# Circle back and include cover image for books %>
+                  <div class="w-full h-full flex items-center justify-center bg-gray-100">
+                    <svg class="w-12 h-12 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                    </svg>
+                  </div>
+              </div>
+
+              <div class="p-4">
+                <h3 class="text-lg font-semibold text-gray-900 group-hover:text-green-600 transition-colors duration-200">
+                  <%= book.title %>
+                </h3>
+                <p class="text-sm text-gray-600 mt-1"><%= book.author %></p>
+
+                <div class="mt-3 flex items-center justify-between">
+                  <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium <%= book.borrowable? ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800' %>">
+                    <%= book.borrowable? ? "Available": "Borrowed" %>
+                  </span>
+
+                  <span class="inline-flex items-center text-green-600 group-hover:text-green-700 text-sm font-medium">
+                    View Details
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1 transform group-hover:translate-x-1 transition-transform duration-200" viewBox="0 0 20 20" fill="currentColor">
+                      <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+                    </svg>
+                  </span>
                 </div>
               </div>
             </div>
