@@ -4,7 +4,7 @@ puts "Clearing existing books..."
 Book.destroy_all
 
 puts "Creating books..."
-6.times do |i|
+20.times do |i|
   Book.create!(
     title: Faker::Book.unique.title,
     author: Faker::Book.author,
