@@ -24,9 +24,14 @@
             </svg>
             <% if @book.currently_borrowed?%>
               Due back on <%= @book.current_circulation.due_date %>
+              <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                <%= distance_of_time_in_words(Date.current, @book.current_circulation.due_date) %> remaining
+              </span>
             <% else %>
               This book is currently unavailable
             <% end %>
+            <div>
+          </div>
           </div>
         <% end %>
       </div>

@@ -1,6 +1,6 @@
 <% content_for :title, "Editing #{@book.title}" %>
 
-<div class="container h-screen mx-auto px-8 py-12">
+<div class="container min-h-screen mx-auto px-8 py-12">
   <nav class="flex items-center text-gray-500 mb-8" aria-label="Breadcrumb">
     <%= link_to "Books", books_path, class: "hover:text-green-600 transition-colors duration-200" %>
     <svg class="mx-3 h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -13,13 +13,13 @@
     <span class="text-gray-900">Edit</span>
   </nav>
 
-  <div class="bg-white rounded-xl shadow-lg">
-    <div class="p-8">
-      <div class="flex items-center gap-3 mb-8">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+  <div class="bg-white rounded-xl shadow-lg max-w-7xl mx-auto w-full">
+    <div class="p-4 sm:p-6 md:p-8">
+      <div class="flex flex-col sm:flex-row items-center gap-2 sm:gap-3 mb-6 sm:mb-8">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 sm:h-8 sm:w-8 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
         </svg>
-        <h1 class="font-bold text-3xl text-gray-900">Editing <%= @book.title %></h1>
+        <h1 class="font-bold text-2xl sm:text-3xl text-gray-900 text-center sm:text-left">Editing <%= @book.title %></h1>
       </div>
 
       <%= render "form", book: @book %>
