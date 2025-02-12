@@ -1,0 +1,55 @@
+<div class="max-w-4xl mx-auto space-y-6">
+  <% borrowings.each do |borrowing| %>
+    <div class="bg-white rounded-xl shadow-sm p-6 hover:shadow-md transition-shadow duration-200 border border-gray-100">
+      <div class="flex flex-col sm:flex-row justify-between gap-6">
+        <div class="flex-1 space-y-3">
+          <h3 class="text-lg font-semibold text-gray-900">
+            <%= link_to borrowing.book.title, book_path(borrowing.book),
+                class: "hover:text-blue-600 transition-colors duration-200" %>
+          </h3>
+
+          <div class="text-gray-600 space-y-2">
+            <p class="flex items-center gap-2 text-sm">
+              <span class="font-medium text-gray-700">Author:</span>
+              <%= borrowing.book.author %>
+            </p>
+            <p class="flex items-center gap-2 text-sm">
+              <span class="font-medium text-gray-700">ISBN:</span>
+              <%= borrowing.book.isbn %>
+            </p>
+          </div>
+        </div>
+
+        <div class="flex flex-col gap-4 sm:text-right">
+          <div class="space-y-1">
+            <span class="text-sm font-medium text-gray-700">Due Date:</span>
+            <div class="<%= borrowing.overdue? ? 'text-red-600 font-semibold' : 'text-gray-600' %>">
+              <%= borrowing.due_date.strftime("%B %d, %Y") %>
+            </div>
+          </div>
+
+          <div>
+            <% if borrowing.overdue? %>
+              <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">
+                Overdue by <%= distance_of_time_in_words(borrowing.due_date, Date.current) %>
+              </span>
+            <% else %>
+              <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                <%= distance_of_time_in_words(Date.current, borrowing.due_date) %> remaining
+              </span>
+            <% end %>
+          </div>
+
+          <div class="flex gap-2 sm:justify-end">
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+
+  <% if borrowings.empty? %>
+    <div class="text-center py-12 bg-gray-50 rounded-lg border border-gray-200">
+      <p class="text-gray-500 text-lg">No borrowings found.</p>
+    </div>
+  <% end %>
+</div>

@@ -1,0 +1,62 @@
+<div class="bg-white rounded-lg shadow">
+  <% borrowings.each do |borrowing| %>
+    <div class="p-4 border-b last:border-b-0">
+      <div class="flex items-center justify-between">
+        <div>
+          <h3 class="font-medium"><%= borrowing.book.title %></h3>
+          <p class="text-sm text-gray-600">
+            Due: <%= borrowing.due_date.strftime("%b %d, %Y") %>
+            <% if borrowing.overdue? %>
+              <span class="text-red-600">(Overdue)</span>
+            <% end %>
+          </p>
+        </div>
+        <%= button_to "Return", check_in_circulation_record_path(borrowing), method: :patch, class: "btn-danger" %>
+      </div>
+    </div>
+  <% end %>
+</div>
+
+
+
+
+
+
+      <div class="max-w-4xl mx-auto px-4 min-h-screen py-8">
+        <% if @overdue_books.any? %>
+          <div class="mb-12">
+            <h2 class="text-xl font-semibold mb-4 text-red-600">
+              Overdue Books (<%= @overdue_books.count %>)
+            </h2>
+            <%= render partial: "books/books_list", locals: { books: @overdue_books } %>
+          </div>
+        <% end %>
+
+
+        <div class="mb-12">
+          <h2 class="text-xl font-semibold mb-4">Borrowing History</h2>
+          <%= render partial: "users/partials/history_list",
+                    locals: { borrowings: @user.circulation_records.returned } %>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-12">
+          <div class="bg-white p-4 rounded-lg shadow">
+            <h3 class="text-lg font-medium mb-2">Total Books Borrowed</h3>
+            <p class="text-2xl font-bold"><%= @user.circulation_records.count %></p>
+          </div>
+
+          <div class="bg-white p-4 rounded-lg shadow">
+            <h3 class="text-lg font-medium mb-2">Books Currently Out</h3>
+            <p class="text-2xl font-bold"><%= @current_borrowings.count %></p>
+          </div>
+        </div>
+
+
+        <div class="flex flex-wrap gap-4">
+          <%= link_to "Browse Books", books_path,
+              class: "px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition" %>
+          <%= link_to "Log Out", session_path,
+              method: :delete, data: { turbo_confirm: "Are you sure?" },
+              class: "px-4 py-2 bg-gray-600 text-white rounded hover:bg-gray-700 transition" %>
+        </div>
+      </div>

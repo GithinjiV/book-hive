@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get "users/profile"
   resource :session
   resources :passwords, param: :token
   resources :registrations, only: %i[new create ]

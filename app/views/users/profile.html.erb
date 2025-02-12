@@ -1,0 +1,59 @@
+<div class="flex flex-col md:flex-row">
+  <div class="flex">
+    <%
+      nav_items = [
+              {
+                name: 'Profile',
+                icon: '<svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="12" cy="7" r="4"></circle>
+                      </svg>'
+              }
+      ]
+
+      admin_nav_items = [
+            {
+              name: 'Users',
+              icon: '<svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                      <circle cx="9" cy="7" r="4"></circle>
+                      <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                      <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                    </svg>'
+            }
+      ]
+    %>
+    <div class="hidden left-0 md:flex w-64 max-h-screen mt-2 p-2  flex-col justify-between border-r border-gray-200">
+      <div class="p-4 w-full">
+        <h1 class="text-lg text-center font-semibold text-gray-600 mb-6">Dashboard</h1>
+        <nav class="space-y-2">
+          <% nav_items.each do |item| %>
+            <%= link_to users_profile_path(tab: item[:name].downcase) do %>
+              <%= dashboard_link(item[:name], users_profile_path, item[:name].downcase, item[:icon]) %>
+            <% end %>
+          <% end %>
+
+          <% if Current.user.can_administer? %>
+            <% admin_nav_items.each do |item| %>
+              <%= link_to users_profile_path(tab: item[:name].downcase) do %>
+                <%= dashboard_link(item[:name], users_profile_path, item[:name].downcase, item[:icon]) %>
+              <% end %>
+            <% end %>
+          <% end %>
+        </nav>
+      </div>
+    </div>
+  </div>
+
+  <div class="flex-1 bg-gray-50">
+    <div class="p-6">
+      <% case params[:tab] %>
+        <% when 'profile' %>
+          <%= render 'users/partials/profile' %>
+
+        <% else %>
+          <%= render "users/partials/profile" %>
+      <% end %>
+    </div>
+  </div>
+</div>
