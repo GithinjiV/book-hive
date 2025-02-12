@@ -52,8 +52,7 @@ production:
   primary: &primary_production
     <<: *default
     database: bookhive_production
-    username: bookhive
-    password: <%= ENV["BOOKHIVE_DATABASE_PASSWORD"] %>
+    password: <%= ENV["MYSQL_ROOT_PASSWORD"] %>
   cache:
     <<: *primary_production
     database: bookhive_production_cache
