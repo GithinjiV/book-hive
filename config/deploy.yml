@@ -106,8 +106,7 @@ accessories:
   db:
     image: mysql:8.0
     host: bookhive.kachistore.online
-    # Change to 3306 to expose port to the world instead of just local network.
-    port: "127.0.0.1:3306:3306"
+    port: "127.0.0.1:3307:3307"
     env:
       clear:
         MYSQL_ROOT_HOST: '%'
