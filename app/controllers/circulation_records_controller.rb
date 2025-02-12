@@ -1,5 +1,4 @@
 class CirculationRecordsController < ApplicationController
-  before_action :ensure_can_administer, only: [ :edit, :update, :show, :destroy ]
   def check_out
     @book = Book.find(params[:book_id])
     @circulation_record = Current.user.circulation_records.new(book: @book, due_date: 2.weeks.from_now)
