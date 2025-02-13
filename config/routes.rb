@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  get "users/profile"
   resource :session
   resources :passwords, param: :token
   resources :registrations, only: %i[new create ]
@@ -20,6 +19,8 @@ Rails.application.routes.draw do
   # Render dynamic PWA files from app/views/pwa/* (remember to link manifest in application.html.erb)
   # get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
   # get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
+  #
+  get "users/:username", to: "users#profile", as: :users_profile
 
   # Defines the root path route ("/")
   root "books#index"

@@ -25,14 +25,14 @@
         <h1 class="text-lg text-center font-semibold text-gray-600 mb-6">Dashboard</h1>
         <nav class="space-y-2">
           <% nav_items.each do |item| %>
-            <%= link_to users_profile_path(tab: item[:name].downcase) do %>
+            <%= link_to users_profile_path(username: @user.username, tab: item[:name].downcase) do %>
               <%= dashboard_link(item[:name], users_profile_path, item[:name].downcase, item[:icon]) %>
             <% end %>
           <% end %>
 
           <% if Current.user.can_administer? %>
             <% admin_nav_items.each do |item| %>
-              <%= link_to users_profile_path(tab: item[:name].downcase) do %>
+              <%= link_to users_profile_path(username: @user.username, tab: item[:name].downcase) do %>
                 <%= dashboard_link(item[:name], users_profile_path, item[:name].downcase, item[:icon]) %>
               <% end %>
             <% end %>
