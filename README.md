@@ -1,5 +1,11 @@
 # Book Hive
-A book lending library application built with Ruby on Rails 8.
+A book lending library application built with Ruby on Rails 8, MySQL database and deployed using Kamal.
+
+## Pre-requisites
+- Ruby (version 3.4.1 or newer)
+- Rails (version 8.0.1 or newer)
+- MySQL (version 8.4 or newer)
+
 
 ## Features
 - User registration and login
