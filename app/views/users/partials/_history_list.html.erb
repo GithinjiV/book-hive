@@ -4,7 +4,7 @@
       <div class="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4">
         <div class="flex-1 space-y-2">
           <h3 class="text-lg font-semibold text-gray-900">
-            <%= link_to book.title, book_path(book), class: "hover:text-blue-600 transition-colors duration-200" %>
+            <%= link_to book.title, book_path(book), class: "hover:text-green-600 transition-colors duration-200" %>
           </h3>
           <div class="text-sm text-gray-600 space-y-1">
             <p>
@@ -31,15 +31,16 @@
 
         <!-- Borrowing History Section -->
         <div class="lg:w-1/2 space-y-4" data-controller="dropdown">
-          <button data-action="click->dropdown#toggle click@window->dropdown#hide"
+
+          <% if book.circulation_records.any? %>
+            <button data-action="click->dropdown#toggle click@window->dropdown#hide"
              class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-amber-100 text-amber-800">
                 Previous borrowers
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
                 </svg>
           </button>
-          <% if book.circulation_records.any? %>
-            <div class="bg-gray-50 rounded-lg p-4" data-dropdown-target="menu" >
+            <div class="bg-gray-50 rounded-lg p-4 hidden" data-dropdown-target="menu" >
               <h4 class="font-medium text-gray-900 mb-3">Borrowing History</h4>
 
               <!-- Current Borrower -->
