@@ -4,10 +4,10 @@ one:
   user: one
   book: one
   due_date: 2025-02-10
-  returned_at: 2025-02-10 16:39:44
+  returned_at: nil
 
 two:
   user: two
   book: two
   due_date: 2025-02-10
-  returned_at: 2025-02-10 16:39:44
+  returned_at: nil

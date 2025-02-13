@@ -1,6 +1,6 @@
 class CirculationRecordsController < ApplicationController
   def check_out
-    @book = Book.find(params[:book_id])
+    @book = Book.friendly.find(params[:slug])
     @circulation_record = Current.user.circulation_records.new(book: @book, due_date: 2.weeks.from_now)
 
     if @circulation_record.save
@@ -11,8 +11,22 @@ class CirculationRecordsController < ApplicationController
   end
 
   def check_in
+    @user = Current.user
+    @current_borrowings = @user.current_borrowings
     @circulation_record = CirculationRecord.find(params[:id])
-    @circulation_record.update(returned_at: Time.current)
-    redirect_to profile_path, notice: "Book returned successfully!"
+    @book = @circulation_record.book
+    @circulation_record.update!(returned_at: Time.current)
+
+    respond_to do |format|
+      format.turbo_stream do
+        render turbo_stream: [
+          turbo_stream.replace(
+            "borrowings",
+            partial: "users/partials/profile",
+            locals: { current_borrowings: @current_borrowings }
+          )
+        ]
+      end
+    end
   end
 end

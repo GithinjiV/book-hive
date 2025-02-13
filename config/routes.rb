@@ -3,12 +3,16 @@ Rails.application.routes.draw do
   resources :passwords, param: :token
   resources :registrations, only: %i[new create ]
   resources :books
-  resources :books, only: [ :index, :show ] do
-    post "check_out", to: "circulation_records#check_out"
+  resources :books, param: :slug do
+    member do
+      post :check_out, to: "circulation_records#check_out"
+    end
   end
 
-  resources :circulation_records, only: [] do
-    patch "check_in", to: "circulation_records#check_in"
+  resources :circulation_records do
+    member do
+      patch :check_in
+    end
   end
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

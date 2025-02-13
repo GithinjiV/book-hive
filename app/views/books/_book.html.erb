@@ -5,7 +5,7 @@
         <div class="space-y-5">
           <div class="mb-8">
           <% if @book.borrowable? %>
-            <%= button_to book_check_out_path(@book),
+            <%= button_to check_out_book_path(@book),
                 method: :post,
                 class: "w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg font-medium transition-all duration-200 hover:shadow-md hover:-translate-y-0.5",
                 data: {
@@ -22,7 +22,7 @@
             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
               <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
             </svg>
-            <% if @book.currently_borrowed?%>
+            <% if @book.currently_borrowed? %>
               Due back on <%= @book.current_circulation.due_date %>
               <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
                 <%= distance_of_time_in_words(Date.current, @book.current_circulation.due_date) %> remaining
