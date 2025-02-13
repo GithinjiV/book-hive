@@ -30,7 +30,7 @@
             <% end %>
           <% end %>
 
-          <% if Current.user.can_administer? %>
+          <% if @user.can_administer? %>
             <% admin_nav_items.each do |item| %>
               <%= link_to users_profile_path(username: @user.username, tab: item[:name].downcase) do %>
                 <%= dashboard_link(item[:name], users_profile_path, item[:name].downcase, item[:icon]) %>
@@ -57,3 +57,4 @@
     </div>
   </div>
 </div>
+<%= render "users/partials/mobile_nav" %>

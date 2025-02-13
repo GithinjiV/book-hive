@@ -1,0 +1,43 @@
+<%
+      nav_items = [
+              {
+                name: 'Profile',
+                icon: '<svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="12" cy="7" r="4"></circle>
+                      </svg>'
+              }
+      ]
+
+      admin_nav_items = [
+            {
+              name: 'Books',
+              icon: '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 0 0 6 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 0 1 6 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 0 1 6-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0 0 18 18a8.967 8.967 0 0 0-6 2.292m0-14.25v14.25" />
+              </svg>'
+            }
+      ]
+    %>
+<div class="fixed md:hidden bottom-0 left-0 right-0 bg-white shadow-md z-50 h-auto">
+  <div class="flex justify-between items-center px-4 py-2">
+    <% nav_items.each do |item| %>
+      <%= link_to users_profile_path(username: @user.username, tab: item[:name].downcase),
+          class: "text-gray-600 hover:text-gray-900 transition-colors" do %>
+        <div>
+          <%= dashboard_icon(item[:name].downcase, item[:icon]) %>
+        </div>
+      <% end %>
+    <% end %>
+
+    <% if @user.can_administer? %>
+      <% admin_nav_items.each do |item| %>
+        <%= link_to users_profile_path(username: @user.username, tab: item[:name].downcase),
+            class: "text-gray-600 hover:text-gray-900 transition-colors" do %>
+          <div>
+            <%= dashboard_icon(item[:name].downcase, item[:icon]) %>
+          </div>
+        <% end %>
+      <% end %>
+    <% end %>
+  </div>
+</div>
