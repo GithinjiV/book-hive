@@ -1,0 +1,76 @@
+<div class="container mx-auto px-4 py-8" id="user-history">
+  <h1 class="text-xl font-bold text-gray-900 mb-6">My Borrowing History</h1>
+  <div class="mb-8">
+    <h2 class="text-lg font-semibold text-gray-800 mb-4">Currently Borrowed Books</h2>
+    <div class="bg-white rounded-xl shadow-sm divide-y divide-gray-200">
+      <% if @current_borrowings.any? %>
+        <% @current_borrowings.each do |record| %>
+          <div class="p-6">
+            <div class="flex flex-col sm:flex-row justify-between gap-4">
+              <div class="flex-1">
+                <h3 class="text-lg font-semibold text-gray-900">
+                  <%= link_to record.book.title, book_path(record.book), class: "hover:text-blue-600" %>
+                </h3>
+                <p class="text-sm text-gray-600">by <%= record.book.author %></p>
+                <div class="mt-2 space-y-1 text-sm text-gray-500">
+                  <p>Borrowed on: <%= record.created_at.strftime("%B %d, %Y") %></p>
+                  <p>Due date: <%= record.due_date.strftime("%B %d, %Y") %></p>
+                  <% if record.due_date < Date.current %>
+                    <p class="text-red-600 font-medium">Overdue by <%= distance_of_time_in_words(record.due_date, Date.current) %></p>
+                  <% else %>
+                    <p>Due in <%= distance_of_time_in_words(Date.current, record.due_date) %></p>
+                  <% end %>
+                </div>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      <% else %>
+        <div class="p-6 text-gray-500 italic">
+          You don't have any books currently borrowed.
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <!-- Past Borrowings -->
+  <div>
+    <h2 class="text-xl font-semibold text-gray-800 mb-4">Past Borrowings</h2>
+    <div class="bg-white rounded-xl shadow-sm divide-y divide-gray-200">
+      <% if @past_borrowings.any? %>
+        <% @past_borrowings.each do |record| %>
+          <div class="p-6">
+            <div class="flex flex-col sm:flex-row justify-between gap-4">
+              <div class="flex-1">
+                <h3 class="text-lg font-semibold text-gray-900">
+                  <%= link_to record.book.title, book_path(record.book), class: "hover:text-blue-600" %>
+                </h3>
+                <p class="text-sm text-gray-600">by <%= record.book.author %></p>
+                <div class="mt-2 space-y-1 text-sm text-gray-500">
+                  <p>Borrowed: <%= record.created_at.strftime("%B %d, %Y") %></p>
+                  <p>Returned: <%= record.returned_at.strftime("%B %d, %Y") %></p>
+                  <p>Duration: <%= distance_of_time_in_words(record.created_at, record.returned_at) %></p>
+                </div>
+              </div>
+              <div class="text-sm text-gray-500">
+                <% if record.returned_at <= record.due_date %>
+                  <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                    Returned on time
+                  </span>
+                <% else %>
+                  <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">
+                    Returned late
+                  </span>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      <% else %>
+        <div class="p-6 text-gray-500 italic">
+          You don't have any past borrowings.
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
