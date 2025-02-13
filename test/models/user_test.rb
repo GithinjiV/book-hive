@@ -84,6 +84,32 @@ class UserTest < ActiveSupport::TestCase
     assert_includes duplicate_user.errors[:username], "has already been taken"
   end
 
+  test "should be invalid with a duplicate username" do
+    duplicate_user = @user.dup
+    @user.save
+    assert_not duplicate_user.valid?
+    assert_includes duplicate_user.errors[:username], "has already been taken"
+  end
+
+  test "should be invalid with special characters in username" do
+    invalid_usernames = [ "user@name", "user name", "user!name", "user$name" ]
+
+    invalid_usernames.each do |invalid_username|
+      @user.username = invalid_username
+      assert_not @user.valid?, "#{invalid_username.inspect} should be invalid"
+      assert_includes @user.errors[:username], "only allows letters, numbers, underscores, and dashes"
+    end
+  end
+
+  test "should be valid with underscores and dashes" do
+    valid_usernames = [ "user_name", "user-name", "UserName123" ]
+
+    valid_usernames.each do |valid_username|
+      @user.username = valid_username
+      assert @user.valid?, "#{valid_username.inspect} should be valid"
+    end
+  end
+
   test "should return true for current? if user is Current.user" do
     session_mock = OpenStruct.new(user: @user)  # Create a mock session with the user
     Current.session = session_mock

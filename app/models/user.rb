@@ -14,7 +14,8 @@ class User < ApplicationRecord
   validates :password_confirmation, presence: true, if: -> { new_record? || changes[:password_digest] }
   validates :first_name, presence: true
   validates :last_name, presence: true
-  validates :username, presence: true, uniqueness: true
+  validates :username, presence: true, uniqueness: true,
+            format: { with: /\A[a-zA-Z0-9_-]+\z/, message: "only allows letters, numbers, underscores, and dashes" }
 
   def current?
     self == Current.user
