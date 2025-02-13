@@ -65,3 +65,4 @@ group :test do
   gem "selenium-webdriver"
 end
 gem "name_of_person", "~> 1.1"
+gem "friendly_id", "~> 5.5.0"
