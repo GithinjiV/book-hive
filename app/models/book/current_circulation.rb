@@ -11,7 +11,7 @@ module Book::CurrentCirculation
     end
 
     def overdue?
-      returned_at.nil? && due_date < Date.current
+      returned_at.nil? && due_date < Time.current
     end
   end
 end

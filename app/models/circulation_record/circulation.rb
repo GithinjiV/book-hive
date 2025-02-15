@@ -6,11 +6,11 @@ module CirculationRecord::Circulation
     validate :due_date_in_future, on: :create
 
     scope :active, -> { where(returned_at: nil) }
-    scope :overdue, -> { active.where("due_date < ?", Date.current) }
+    scope :overdue, -> { active.where("due_date < ?", Time.current) }
     scope :returned, -> { where.not(returned_at: nil) }
 
     def overdue?
-      returned_at.nil? && due_date < Date.current
+      returned_at.nil? && due_date < Time.current
     end
 
     def return!
