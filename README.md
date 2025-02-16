@@ -26,3 +26,7 @@ A book lending library application built with Ruby on Rails 8, MySQL database an
 
 ## Demo
 - Check out the demo deployed using Kamal [here](https://bookhive.kachistore.online)
+
+## Librarian (Admin) Dashboard
+
+![Admin Dashboard](image.png)
