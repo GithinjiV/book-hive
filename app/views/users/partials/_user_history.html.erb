@@ -16,9 +16,13 @@
                   <p>Borrowed on: <%= record.created_at.strftime("%B %d, %Y") %></p>
                   <p>Due date: <%= record.due_date.strftime("%B %d, %Y") %></p>
                   <% if record.due_date < Date.current %>
-                    <p class="text-red-600 font-medium">Overdue by <%= distance_of_time_in_words(record.due_date, Date.current) %></p>
+                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">
+                      Overdue by <%= distance_of_time_in_words(record.due_date, Date.current) %>
+                    </span>
                   <% else %>
-                    <p>Due in <%= distance_of_time_in_words(Date.current, record.due_date) %></p>
+                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                      <%= distance_of_time_in_words(Date.current, record.due_date) %> remaining
+                    </span>
                   <% end %>
                 </div>
               </div>
