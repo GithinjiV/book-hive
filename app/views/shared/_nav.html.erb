@@ -2,15 +2,77 @@
   <div class="container mx-auto px-8 py-5 flex justify-between items-center">
     <%= link_to "Book Hive", root_path, class: "text-2xl font-bold tracking-tight hover:text-green-200 transition-colors duration-200 flex items-center gap-2" %>
     <% if authenticated? %>
-        <div class="relative" data-controller="dropdown">
-          <button data-action="click->dropdown#toggle" class="focus:outline-none">
-            <%= image_tag "user_placeholder.png", class: "w-10 h-10 rounded-full", alt: "User Avatar" %>
-          </button>
+      <% current_borrowings = Current.user.circulation_records.where(returned_at: nil) %>
+        <div class="flex items-center gap-4">
+          <div class="relative" data-controller="dropdown">
+            <button data-action="click->dropdown#toggle" class="focus:outline-none relative">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-white hover:text-green-200 transition-colors duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+              </svg>
+              <span class="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-4 w-4 flex items-center justify-center"><%= current_borrowings.size %></span>
+            </button>
 
-          <div data-dropdown-target="menu" class="hidden absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg z-50">
-            <div class="py-2">
-              <%= link_to "Profile", users_profile_path(username: Current.user.username), class: "block px-4 py-2 text-gray-700 hover:bg-gray-100" %>
-              <%= button_to "Logout", session_path, method: :delete, data: {turbo_confirm: "Do you want to log out?"}, class: "block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100" %>
+            <div data-dropdown-target="menu" class="hidden absolute right-0 mt-2 w-72 bg-white rounded-lg shadow-lg z-50">
+              <div class="py-2">
+                <div class="px-4 py-2 text-gray-700 border-b border-gray-200">
+                  <h3 class="font-semibold">Books Due for Return</h3>
+                </div>
+                <% if current_borrowings.any? %> 
+                  <% current_borrowings.each do |record| %>
+                    <% days_remaining = (record.due_date.to_date - Date.today).to_i %>
+                    <% 
+                      status_class = if days_remaining < 0
+                                      "text-red-600 font-medium"
+                                    elsif days_remaining < 3
+                                      "text-amber-500"
+                                    else
+                                      "text-gray-500"
+                                    end
+                      
+                      status_text = if days_remaining < 0
+                                     "Overdue by #{days_remaining.abs} days"
+                                   elsif days_remaining == 0
+                                     "Due today"
+                                   else
+                                     "Due in #{days_remaining} days"
+                                   end
+                      
+                      icon_class = days_remaining < 0 ? "text-red-500" : (days_remaining < 3 ? "text-amber-500" : "text-green-500")
+                    %>
+                    <%= link_to book_path(record.book), class: "block px-4 py-3 text-sm text-gray-700 hover:bg-gray-100 border-b border-gray-100" do %>
+                      <div class="flex items-center">
+                        <div class="mr-3">
+                          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 <%= icon_class %>" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                          </svg>
+                        </div>
+                        <div>
+                          <p class="font-medium"><%= record.book.title.truncate(30) %></p>
+                          <p class="text-xs <%= status_class %>"><%= status_text %></p>
+                        </div>
+                      </div>
+                    <% end %>
+                  <% end %>
+                <% else %>
+                  <div class="px-4 py-3 text-sm text-gray-700">
+                    <p>You have no borrowed books to return!</p>
+                  </div>
+                <% end %>
+              </div>
+            </div>
+          </div>
+
+
+          <div class="relative" data-controller="dropdown">
+            <button data-action="click->dropdown#toggle" class="focus:outline-none">
+              <%= image_tag "user_placeholder.png", class: "w-10 h-10 rounded-full", alt: "User Avatar" %>
+            </button>
+
+            <div data-dropdown-target="menu" class="hidden absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg z-50">
+              <div class="py-2">
+                <%= link_to "Profile", users_profile_path(username: Current.user.username), class: "block px-4 py-2 text-gray-700 hover:bg-gray-100" %>
+                <%= button_to "Logout", session_path, method: :delete, data: {turbo_confirm: "Do you want to log out?"}, class: "block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100" %>
+              </div>
             </div>
           </div>
         </div>
