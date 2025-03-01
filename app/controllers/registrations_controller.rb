@@ -15,7 +15,7 @@ class RegistrationsController < ApplicationController
 
     if @user.save
       start_new_session_for @user
-      redirect_to after_authentication_url, notice: "Welcome back #{@user.first_name}!"
+      redirect_to after_authentication_url, notice: "Welcome #{@user.first_name}!"
     else
       flash[:alert] =  "#{@user.errors.count} errors prohibited this user from being saved"
       render :new, status: :unprocessable_entity
