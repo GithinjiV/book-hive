@@ -29,7 +29,7 @@ class RegistrationsTest < ActionDispatch::IntegrationTest
     end
 
     assert_redirected_to root_url
-    assert_equal "Welcome back Janie!", flash[:notice]
+    assert_equal "Welcome Janie!", flash[:notice]
 
     follow_redirect!
     assert_response :success
