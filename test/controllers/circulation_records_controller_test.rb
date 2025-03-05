@@ -9,7 +9,7 @@ class CirculationRecordsControllerTest < ActionDispatch::IntegrationTest
       first_name: "Johnie",
       last_name: "Doe",
       username: "johniedoe"
-    )
+   )
 
     @book = Book.create!(
       title: "Sample Book",
