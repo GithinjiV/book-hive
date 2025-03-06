@@ -1,5 +1,4 @@
 class UsersController < ApplicationController
-  include Authorization
   before_action :set_user
   before_action :load_admin_resources, if: :user_can_administer
   def profile
