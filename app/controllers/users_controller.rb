@@ -4,7 +4,7 @@ class UsersController < ApplicationController
   def profile
     @current_borrowings = @user.current_borrowings
     @overdue_books = @user.overdue_books
-    @borrowings = Current.user.circulation_records.includes(:book).order(created_at: :desc)
+    @borrowings = @user.circulation_records.includes(:book).order(created_at: :desc)
     @past_borrowings = @user.circulation_records.returned
   end
 
