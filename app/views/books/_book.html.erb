@@ -27,6 +27,10 @@
                     <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">
                       Overdue by <%= distance_of_time_in_words(@book.current_circulation.due_date, Date.current)%>
                     </span>
+                  <% elsif @book.current_circulation.due_date === Date.today %>
+                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-amber-100 text-amber-800">
+                      Due to be returned today
+                    </span>
                   <% else %>
                     Due back on <%= @book.current_circulation.due_date %>
                     <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
