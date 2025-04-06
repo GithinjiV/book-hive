@@ -15,7 +15,7 @@ class CirculationRecordsController < ApplicationController
     @current_borrowings = @user.current_borrowings
     @circulation_record = CirculationRecord.find(params[:id])
     @book = @circulation_record.book
-    @circulation_record.update!(returned_at: Time.current)
+    @circulation_record.return!
 
     respond_to do |format|
       format.turbo_stream do
