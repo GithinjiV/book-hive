@@ -1,5 +1,8 @@
 class User < ApplicationRecord
   include CurrentRecord, Role
+
+  after_create_commit { UserMailer.welcome(self).deliver_later }
+
   has_secure_password
   has_person_name
   has_many :sessions, dependent: :destroy

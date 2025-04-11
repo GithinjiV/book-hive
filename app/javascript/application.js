@@ -18,4 +18,5 @@ Turbo.config.forms.confirm = (message, element) => {
       resolve(dialog.returnValue === "confirm")
     }, { once: true })
   })
+  
 }

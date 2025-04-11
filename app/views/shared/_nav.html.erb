@@ -23,7 +23,7 @@
                   <% current_borrowings.each do |record| %>
                     <% days_remaining = (record.due_date.to_date - Date.today).to_i %>
                     <% 
-                      status_class = if days_remaining < 0
+                        status_class = if days_remaining < 0
                                       "text-red-600 font-medium"
                                     elsif days_remaining < 3
                                       "text-amber-500"
@@ -57,7 +57,7 @@
                   <% end %>
                 <% else %>
                   <div class="px-4 py-3 text-sm text-gray-700">
-                    <p>You have no borrowed books to return!</p>
+                    <p>No borrowed books to return. Enjoy your <%= Time.now.strftime("%A") %>!</p>
                   </div>
                 <% end %>
               </div>
