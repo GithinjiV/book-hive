@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/rails/rails.git
-  revision: 9b054c66d4fc5ec526cff3566d1c058681302b67
+  revision: 990198b7b5f4a3a3d0d59bc1bcac58efa405f527
   branch: main
   specs:
     actioncable (8.2.0.alpha)
@@ -136,7 +136,7 @@ GEM
     dotenv (3.1.8)
     drb (2.2.3)
     ed25519 (1.4.0)
-    erb (5.1.3)
+    erb (6.0.0)
     erubi (1.13.1)
     et-orbi (1.4.0)
       tzinfo
@@ -190,7 +190,7 @@ GEM
     marcel (1.1.0)
     matrix (0.4.3)
     mini_mime (1.1.5)
-    minitest (5.26.1)
+    minitest (5.26.2)
     msgpack (1.8.0)
     mysql2 (0.5.7)
       bigdecimal
@@ -266,7 +266,7 @@ GEM
       psych (>= 4.0.0)
       tsort
     regexp_parser (2.11.3)
-    reline (0.6.2)
+    reline (0.6.3)
       io-console (~> 0.5)
     rexml (3.4.4)
     rubocop (1.81.7)
@@ -331,7 +331,7 @@ GEM
       ostruct
     stimulus-rails (1.3.4)
       railties (>= 6.0.0)
-    stringio (3.1.7)
+    stringio (3.1.8)
     tailwindcss-rails (4.4.0)
       railties (>= 7.0.0)
       tailwindcss-ruby (~> 4.0)
